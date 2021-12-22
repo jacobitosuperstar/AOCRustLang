@@ -41,7 +41,10 @@ fn main() {
             .parse() // convierte la string en algún tipo de número
             {
                 Ok(num) => num,
-                Err(_) => continue,
+                Err(_) => {
+                    println!("Debes de ingresar un número");
+                    continue;
+                }
             };
 
         // {} es un placeholder para las variables que siguen después de la
