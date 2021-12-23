@@ -35,6 +35,7 @@ fn main() {
         // println!("{}", a); // imprimiendo los valores de cada elemento
     }
 
+    // parte 1 del ejercicio
     let mut counter: isize = 0;
     let len_vector = input.len() - 1;
     for i in 0..len_vector {
@@ -53,5 +54,44 @@ fn main() {
            };
         }
     }
+    println!("Parte uno del ejercicio");
+    println!("La cantidad de veces que la profundidad aumenta es {}",counter);
+
+    // parte 2 del ejercicio
+    // haciendo el nuevo vector de medidas ruidosas
+    let len_vector = input.len() - 1; // para sacar bien el rango
+    let for_limit = &len_vector - 1; // límite del for para sacar valores de 3
+    let mut noisy_input = Vec::new();
+    for i in 0..len_vector {
+        if i == for_limit {
+            break;
+        }
+        else {
+            let measurement = &input[i] + &input[i+1] + &input[i+2];
+            noisy_input.push(measurement);
+        }
+    }
+    // println!("{:?}", noisy_input);
+
+    // haciendo la misma comparación que se hizo en el primer ejercicio
+    let mut counter: isize = 0;
+    let len_vector = noisy_input.len() - 1;
+    for i in 0..len_vector {
+        if i == len_vector{
+            break;
+        }
+        else {
+            // let a = &noisy_input[i];
+            // let b = &noisy_input[i+1];
+            match &noisy_input[i+1].cmp(&noisy_input[i]){
+               Ordering::Less => continue,
+               Ordering::Greater => {
+                   counter = counter + 1;
+               },
+               Ordering::Equal => continue,
+           };
+        }
+    }
+    println!("Parte dos del ejercicio");
     println!("La cantidad de veces que la profundidad aumenta es {}",counter);
 }
