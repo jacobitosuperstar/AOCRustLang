@@ -13,8 +13,8 @@ fn main() {
 
     // leer archivo
     // let file_contents = fs::read_to_string(input)
-    // let file_contents = fs::read_to_string("test.txt")
-    let file_contents = fs::read_to_string("input.txt")
+    let file_contents = fs::read_to_string("test.txt")
+    // let file_contents = fs::read_to_string("input.txt")
     .expect("No se pudo leer el archivo");
 
     // imprimo el contenido del archivo
@@ -31,6 +31,8 @@ fn main() {
     }
     println!("Valores de entredada del archivo");
     println!("{:?}", input);
+
+    // Solucionando la parte uno del problema3
 
     // se van a guardar cada uno de los valores [i] en un vector.
     // vector para guardar los valores de las filas
@@ -49,7 +51,7 @@ fn main() {
             eclipse_values.push(
                 a[i] // el valor [i] del vector
                 .to_string() // volvemos le char una string
-                .parse::<u32>() // parseamos el string a i32
+                .parse::<u32>() // parseamos el string a u32
                 .unwrap() //  unwrap para que el programa pare si hay un error
                 );
         }
@@ -63,10 +65,9 @@ fn main() {
     // es 12 la suma de la mitad de los elementos
     // si la suma de todos los elementos da más de 12, se repiten más el 1
     // si la suma de todos los elementos da menos de 12, se repiten más el 0
-    let mut comparing_value = ((eclipse_chars[1].len() as f32)/(2 as f32)).ceil() as usize;
-    if (eclipse_chars[1].len() as f32)%(2 as f32) == 0 as f32 {
-        comparing_value = comparing_value + 1;
-    }
+    let comparing_value =
+        ((eclipse_chars[1].len() as f32)/(2 as f32)).ceil() as usize;
+
     println!("Valor al que vamos a comparar");
     println!("{}", comparing_value);
 
@@ -123,7 +124,70 @@ fn main() {
     println!("Epsilon rate");
     println!("{:?}", epsilon_rate);
 
-    // respuesta del problema
-    println!("Respuesta del Problema");
+    // respuesta del punto uno del problema
+    println!("Respuesta del punto uno del Problema 3");
     println!("{}", epsilon_rate*gamma_rate);
+
+    // solucionando la parte 2 del problema3
+    // Qué tengo que hacer??
+    // Agarro el primer número del gamma_rate_vector y voy eliminando cada uno
+    // de los vectores que tienen el mismo número en la misma posición hasta
+    // que quede un último valor.
+
+    println!("Gamma rate vector");
+    println!("{:?}", &gamma_rate_vector);
+    println!("Valores de entrada del archivo");
+    println!("{:?}", &input);
+
+    println!("removiendo");
+    // let mut remove_this_position = Vec::new();
+    // for i in 0..gamma_rate_vector.len() {
+    //     for j in 0..input.len() {
+    //         if gamma_rate_vector[i] != input[j][i].to_string() {
+    //             // remove_this_position.push(j);
+    //             input.remove(j);
+    //             println!("{:?}", input);
+    //             if input.len() == 1 {
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // }
+
+    // let mut i = 0;
+    // let mut j = 0;
+    // let mut len = input.len();
+    // while len > 1 {
+    //     for i in 0..gamma_rate_vector.len() {
+    //         if gamma_rate_vector[i] != input[j][i].to_string() {
+    //             input.remove(j);
+    //             j = 0;
+    //             println!("{:?}", input);
+    //         } else {
+    //             j = j+1;
+    //         }
+    //         println!("{}", j);
+    //         len = input.len();
+    //     }
+    // }
+    let mut i = 0;
+    let mut j = 0;
+    while input.len() > 1 {
+        if i < gamma_rate_vector.len() {
+            if gamma_rate_vector[i] != input[j][i].to_string() {
+                // println!("{:?}", input[j]);
+                println!("{:?}", input);
+                input.remove(j);
+                j = 0;
+            } else {
+                j = j+1;
+            }
+            i = i + 1;
+        } else {
+            i = 0;
+        }
+    }
+
+    println!("Valores de entrada modificados");
+    println!("{:?}", input);
 }
